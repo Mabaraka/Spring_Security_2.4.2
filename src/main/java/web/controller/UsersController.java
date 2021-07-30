@@ -5,24 +5,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import web.service.CarService;
-import web.models.Car;
+import web.service.UserService;
+import web.models.User;
 
 import java.util.List;
 
 @Controller
-public class CarsController {
+public class UsersController {
 
     @Autowired
-    private CarService carService;
+    private UserService userService;
 
-    @GetMapping("/cars")
+    @GetMapping("/")
     public String carView(@RequestParam(defaultValue = "5") int count, Model model) {
 
-        List<Car> carList = carService.getCars(count);
+        List<User> userList = userService.getUsers(count);
 
-        model.addAttribute("Cars", carList);
+        model.addAttribute("Users", userList);
 
-        return "cars";
+        return "users";
     }
 }

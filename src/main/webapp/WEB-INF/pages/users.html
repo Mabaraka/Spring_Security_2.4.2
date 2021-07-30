@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>CarsList</title>
+    <title>UserList</title>
 
     <style>
     table {
@@ -27,14 +27,14 @@
 
     <tr>
         <th>Id</th>
-        <th>Max Speed</th>
-        <th>Max Distance</th>
+        <th>Name</th>
+        <th>Age</th>
     </tr>
 
-    <tr th:each="car : ${Cars}">
-        <td><span th:text="${car.getId()}"></span></td>
-        <td><span th:text="${car.getMaxSpeed()}"></span></td>
-        <td><span th:text="${car.getMaxDistance()}"></span></td>
+    <tr th:each="user : ${Users}">
+        <td><span th:text="${user.getId()}"></span></td>
+        <td><span th:text="${user.getName()}"></span></td>
+        <td><span th:text="${user.getAge()}"></span></td>
     </tr>
 
 </table>
