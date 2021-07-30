@@ -2,11 +2,49 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
     <title></title>
+
+    <style>
+        table {
+            width: 100%;
+            background: white;
+            color: black;
+            border-spacing: 1px;
+        }
+        td, th {
+            background: whitesmoke; /* Цвет фона ячеек */
+            padding: 5px; /* Поля вокруг текста */
+        }
+    </style>
+
+
 </head>
 <body>
-<p th:text="${user.getId()}">id</p>
-<p th:text="${user.getName()}">name</p>
-<p th:text="${user.getAge()}">age</p>
+
+
+<table border="2">
+
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Age</th>
+    </tr>
+
+    <tr>
+        <td><span><a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getId()}"></a></span></td>
+        <td><span th:text="${user.getName()}"></span></td>
+        <td><span th:text="${user.getAge()}"></span></td>
+    </tr>
+    <br/>
+    <hr/>
+    <a th:href="@{/users/{id}/edit(id=${user.getId()})}">Edit</a>
+    <br/>
+    <hr/>
+    <form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
+        <input type="submit" value="Delete"/>
+    </form>
+</table>
+
 </body>
 </html>
