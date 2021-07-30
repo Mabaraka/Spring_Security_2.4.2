@@ -1,14 +1,13 @@
-package web.service;
+package web.dao;
 
 import org.springframework.stereotype.Component;
 import web.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
-public class UserService {
+public class UserDAO {
     private List<User> users;
 
     {
@@ -20,7 +19,11 @@ public class UserService {
         users.add(new User(5, "Rob", 27));
     }
 
-    public List<User> getUsers(int amount) {
-        return users.stream().limit(amount).collect(Collectors.toList());
+    public List<User> index() {
+        return users;
+    }
+
+    public User show(int id){
+        return users.stream().filter(u -> u.getId() == id).findAny().orElse(null);
     }
 }
