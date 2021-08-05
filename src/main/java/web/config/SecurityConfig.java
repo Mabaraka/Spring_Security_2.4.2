@@ -17,8 +17,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         User.UserBuilder userBuilder = User.withDefaultPasswordEncoder();
-        auth.inMemoryAuthentication().withUser(userBuilder.username("ADMIN").password("ADMIN").roles("ADMIN", "USER"));
-        auth.inMemoryAuthentication().withUser(userBuilder.username("USER").password("USER").roles("USER"));
+        auth.inMemoryAuthentication().withUser(userBuilder.username("ADMIN").password("ADMIN").roles("ADMIN"));
+        auth.inMemoryAuthentication().withUser(userBuilder.username("USER").password("USER").roles("ADMIN"));
     }
 
     @Override
@@ -55,8 +55,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/hello").access("hasAnyRole('ADMIN')").anyRequest().authenticated();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
-    }
 }
