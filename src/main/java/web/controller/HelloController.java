@@ -26,5 +26,4 @@ public class HelloController {
     public String loginPage() {
         return "login";
     }
-
 }
