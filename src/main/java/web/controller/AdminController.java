@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import web.models.Role;
 import web.models.User;
+import web.service.RoleService;
 import web.service.UserService;
 
 import java.util.HashSet;
@@ -17,9 +18,13 @@ public class AdminController {
 
     private UserService userService;
 
+    private RoleService roleService;
+
+
     @Autowired
-    public AdminController(UserService userService) {
+    public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     @GetMapping()
@@ -41,19 +46,19 @@ public class AdminController {
 
     @PostMapping
     public String create(@ModelAttribute("user") User user,
-                         @RequestParam(required = false ,name = "ADMIN") String ADMIN,
-                         @RequestParam(required = false ,name = "USER") String USER) {
+                         @RequestParam("ADMIN") String ADMIN,
+                         @RequestParam("USER") String USER) {
 
         HashSet<Role> roles = new HashSet();
 
         if (ADMIN != null) {
-            roles.add(new Role(1, ADMIN));
+            roles.add(roleService.getRoleById(1));
         }
         if (USER != null) {
-            roles.add(new Role(2, USER));
+            roles.add(roleService.getRoleById(2));
         }
         if (ADMIN == null && USER == null) {
-            roles.add(new Role(2, USER));
+            roles.add(roleService.getRoleById(2));
         }
         user.setRoles(roles);
 
@@ -70,19 +75,19 @@ public class AdminController {
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") User user,
                          @PathVariable("id") int id,
-                         @RequestParam(required = false ,name = "ADMIN") String ADMIN,
-                         @RequestParam(required = false , name = "USER") String USER) {
+                         @RequestParam("ADMIN") String ADMIN,
+                         @RequestParam("USER") String USER) {
 
         HashSet<Role> roles = new HashSet();
 
         if (ADMIN != null) {
-            roles.add(new Role(1, ADMIN));
+            roles.add(roleService.getRoleById(1));
         }
         if (USER != null) {
-            roles.add(new Role(2, USER));
+            roles.add(roleService.getRoleById(2));
         }
         if (ADMIN == null && USER == null) {
-            roles.add(new Role(2, USER));
+            roles.add(roleService.getRoleById(2));
         }
         user.setRoles(roles);
 

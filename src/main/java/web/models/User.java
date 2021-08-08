@@ -3,7 +3,6 @@ package web.models;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -14,7 +13,7 @@ import java.util.Set;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Column(name = "username")
@@ -35,11 +34,15 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String name, String pass, int age, Set<Role> roles) {
+    public User(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public User(String name, String pass, int age) {
         this.name = name;
         this.pass = new BCryptPasswordEncoder(12).encode(pass);
         this.age = age;
-        this.roles = roles;
     }
 
     @Override
