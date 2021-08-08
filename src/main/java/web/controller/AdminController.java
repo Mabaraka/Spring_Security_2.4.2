@@ -46,8 +46,8 @@ public class AdminController {
 
     @PostMapping
     public String create(@ModelAttribute("user") User user,
-                         @RequestParam("ADMIN") String ADMIN,
-                         @RequestParam("USER") String USER) {
+                         @RequestParam(required = false, name = "ADMIN") String ADMIN,
+                         @RequestParam(required = false, name = "USER") String USER) {
 
         HashSet<Role> roles = new HashSet();
 
@@ -75,8 +75,8 @@ public class AdminController {
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") User user,
                          @PathVariable("id") int id,
-                         @RequestParam("ADMIN") String ADMIN,
-                         @RequestParam("USER") String USER) {
+                         @RequestParam(required = false, name = "ADMIN") String ADMIN,
+                         @RequestParam(required = false, name = "USER") String USER) {
 
         HashSet<Role> roles = new HashSet();
 

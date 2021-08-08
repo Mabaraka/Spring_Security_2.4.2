@@ -41,7 +41,7 @@ public class User implements UserDetails {
 
     public User(String name, String pass, int age) {
         this.name = name;
-        this.pass = new BCryptPasswordEncoder(12).encode(pass);
+        this.pass = pass;
         this.age = age;
     }
 
