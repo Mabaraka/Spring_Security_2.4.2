@@ -29,20 +29,27 @@
         <th>Id</th>
         <th>Name</th>
         <th>Age</th>
+        <th>Role</th>
     </tr>
 
     <tr>
-        <td><span><a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getId()}"></a></span></td>
+        <td><span><a th:href="@{/admin/{id}(id=${user.getId()})}" th:text="${user.getId()}"></a></span></td>
         <td><span th:text="${user.getName()}"></span></td>
         <td><span th:text="${user.getAge()}"></span></td>
+        <td><span th:text="${user.getRoles()}"></span></td>
     </tr>
     <br/>
     <hr/>
-    <a th:href="@{/users/{id}/edit(id=${user.getId()})}">Edit</a>
+    <a th:href="@{/admin/{id}/edit(id=${user.getId()})}">Edit</a>
     <br/>
     <hr/>
-    <form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
+    <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
         <input type="submit" value="Delete"/>
+    </form>
+    <br/>
+    <hr/>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Log out" />
     </form>
 </table>
 

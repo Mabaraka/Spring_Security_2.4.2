@@ -1,5 +1,7 @@
 package web.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import web.models.User;
 
@@ -14,6 +16,13 @@ public class UserDaoImpl implements UserDao {
     @PersistenceContext
     private EntityManager entityManager;
 
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     @Override
     public List<User> index() {
         return entityManager.createQuery("FROM User").getResultList();
@@ -26,25 +35,28 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void save(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         entityManager.persist(user);
     }
 
     @Override
     public void update(int id, User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         entityManager.merge(user);
     }
 
     @Override
     public void delete(int id) {
-        entityManager.remove(show(id));
+        Query query = entityManager.createQuery("delete User where id = :ID");
+        query.setParameter("ID", id);
+        query.executeUpdate();
     }
 
     @Override
     public User findByUsername(String username) {
-        System.out.println("dao");
         Query query = entityManager.createQuery("FROM User where name =?1");
         query.setParameter(1, username);
-        User user = (User) query.getSingleResult();
-        return user;
+        return (User) query.getSingleResult();
+
     }
 }
