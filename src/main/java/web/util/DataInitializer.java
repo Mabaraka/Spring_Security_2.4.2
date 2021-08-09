@@ -1,8 +1,5 @@
 package web.util;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import web.models.Role;
 import web.models.User;
@@ -14,12 +11,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Component
-public class DataInitialaizer {
+public class DataInitializer {
 
     private UserService userService;
     private RoleService roleService;
 
-    public DataInitialaizer(UserService userService, RoleService roleService) {
+    public DataInitializer(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }
