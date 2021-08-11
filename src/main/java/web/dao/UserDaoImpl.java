@@ -41,7 +41,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void update(int id, User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if(!(user.getPassword().equals(""))){
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        } else {
+            user.setPassword(show(id).getPassword());
+        }
         entityManager.merge(user);
     }
 

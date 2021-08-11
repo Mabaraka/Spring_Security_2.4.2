@@ -51,7 +51,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public User findByUsername(String username) {
         return userDao.findByUsername(username);
     }
