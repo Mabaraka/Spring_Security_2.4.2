@@ -15,14 +15,8 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
-    @Column(name = "username")
     private String name;
-
-    @Column(name = "password")
     private String pass;
-
-    @Column(name = "age")
     private int age;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -34,16 +28,12 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
-
     public User(String name, String pass, int age) {
         this.name = name;
         this.pass = pass;
         this.age = age;
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -79,6 +69,7 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 
     public int getId() {
         return id;

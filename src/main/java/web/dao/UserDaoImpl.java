@@ -24,12 +24,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> index() {
+    public List<User> getAll() {
         return entityManager.createQuery("FROM User").getResultList();
     }
 
     @Override
-    public User show(int id) {
+    public User getUser(int id) {
         return entityManager.find(User.class, id);
     }
 
@@ -41,11 +41,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void update(int id, User user) {
-        if(!(user.getPassword().equals(""))){
+        if (!(user.getPassword().equals("")))
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-        } else {
-            user.setPassword(show(id).getPassword());
-        }
+        else
+            user.setPassword(getUser(id).getPassword());
+
         entityManager.merge(user);
     }
 
@@ -61,6 +61,5 @@ public class UserDaoImpl implements UserDao {
         Query query = entityManager.createQuery("FROM User where name =?1");
         query.setParameter(1, username);
         return (User) query.getSingleResult();
-
     }
 }

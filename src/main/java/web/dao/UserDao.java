@@ -6,9 +6,9 @@ import web.models.User;
 import java.util.List;
 
 public interface UserDao {
-    public List<User> index();
+    public List<User> getAll();
 
-    public User show(int id);
+    public User getUser(int id);
 
     public void save(User user);
 

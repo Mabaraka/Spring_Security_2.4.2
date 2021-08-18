@@ -17,9 +17,7 @@ import java.util.HashSet;
 public class AdminController {
 
     private UserService userService;
-
     private RoleService roleService;
-
 
     @Autowired
     public AdminController(UserService userService, RoleService roleService) {
@@ -28,14 +26,14 @@ public class AdminController {
     }
 
     @GetMapping()
-    public String index(Model model) {
-        model.addAttribute("Users", userService.index());
-        return "index";
+    public String getAll(Model model) {
+        model.addAttribute("Users", userService.getAll());
+        return "getAll";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.show(id));
+        model.addAttribute("user", userService.getUser(id));
         return "admin_show";
     }
 
@@ -49,26 +47,13 @@ public class AdminController {
                          @RequestParam(required = false, name = "ADMIN") String ADMIN,
                          @RequestParam(required = false, name = "USER") String USER) {
 
-        HashSet<Role> roles = new HashSet();
-
-        if (ADMIN != null) {
-            roles.add(roleService.getRoleById(1));
-        }
-        if (USER != null) {
-            roles.add(roleService.getRoleById(2));
-        }
-        if (ADMIN == null && USER == null) {
-            roles.add(roleService.getRoleById(2));
-        }
-        user.setRoles(roles);
-
         userService.save(user);
         return "redirect:/admin";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("user", userService.show(id));
+        model.addAttribute("user", userService.getUser(id));
         return "edit";
     }
 

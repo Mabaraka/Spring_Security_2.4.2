@@ -13,10 +13,10 @@ public class RoleServiceImpl implements RoleService {
 
     private RoleDao roleDao;
 
-    @Autowired
     public RoleServiceImpl(RoleDao roleDao) {
         this.roleDao = roleDao;
     }
+
 
     @Override
     @Transactional
